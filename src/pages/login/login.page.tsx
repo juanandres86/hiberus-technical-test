@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { loginService } from '../../services/auth'
@@ -18,6 +18,12 @@ const LoginPage = () => {
     const isLogged = useSelector(getIsLogged)
     const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (isLogged) {
+            navigate('/users')
+        }
+    }, [isLogged, navigate])
 
     const handleGoSignUp = () => {
         navigate('/signup')

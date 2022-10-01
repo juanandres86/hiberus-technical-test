@@ -1,3 +1,5 @@
+import { User } from "./user.types";
+
 export type LoginResponse = {
   accessToken: string;
   refreshToken: string;
@@ -15,5 +17,5 @@ export type UserInfoResponse = {
 export type ServiceResponse = {
   success: boolean;
   message: string;
-  data?: LoginResponse | UserInfoResponse;
+  data?: LoginResponse | UserInfoResponse | User[];
 }
