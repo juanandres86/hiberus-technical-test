@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from '../'
+import { ServiceResponse, LoginResponse } from '../../types/service.types';
 
 interface ApplicationState {
   accessToken?: string,
   tokenType?: string,
-  // refreshToken?: string, no lo vamos a usar dado que la API no lo implementa por ahora
+  refreshToken?: string
 }
 
 const initialState: ApplicationState = {}
@@ -13,8 +13,13 @@ export const applicationSlice = createSlice({
   name: 'application',
   initialState: initialState,
   reducers: {
-    setToken: (state) => {
-      return state;
+    setToken: (state, action: PayloadAction<ServiceResponse>) => {
+      if (action.payload.data) {
+        const loginResponse = action.payload.data as LoginResponse;
+        state.accessToken = loginResponse.accessToken;
+        state.tokenType = loginResponse.tokenType;
+        state.refreshToken = loginResponse.refreshToken;
+      }
     },
     removeToken: () => {
       return initialState;
