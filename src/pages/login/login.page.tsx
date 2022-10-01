@@ -9,6 +9,7 @@ import {
     setToken,
 } from '../../store/application/application.slice'
 import { getIsLogged } from '../../store/application/application.selectors'
+import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
     const [email, setEmail] = useState('')
@@ -16,6 +17,11 @@ const LoginPage = () => {
     const dispatch = useDispatch()
     const isLogged = useSelector(getIsLogged)
     const [errorMessage, setErrorMessage] = useState('')
+    const navigate = useNavigate()
+
+    const handleGoSignUp = () => {
+        navigate('/signup')
+    }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -45,7 +51,7 @@ const LoginPage = () => {
                     <Form.Label>Email</Form.Label>
                     <Form.Control
                         type="email"
-                        placeholder="Enter email"
+                        placeholder="Introduce tu email"
                         value={email}
                         onChange={handleChangeEmail}
                     />
@@ -55,7 +61,7 @@ const LoginPage = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         type="password"
-                        placeholder="Password"
+                        placeholder="Introduce tu Password"
                         value={password}
                         onChange={handleChangePassword}
                     />
@@ -71,7 +77,10 @@ const LoginPage = () => {
                     </Alert>
                 )}
                 <Button variant="primary" type="submit">
-                    Submit
+                    Login
+                </Button>
+                <Button variant="primary" onClick={handleGoSignUp}>
+                    Registro
                 </Button>
             </Form>
         </div>
