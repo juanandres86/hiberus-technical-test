@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import { getIsLogged } from '../store/session/session.selectors'
 import NavBarComponent from '../components/navbar/navbar.component'
 import UpdateUser from '../pages/updateUser/updateUser.page'
+import CreateUser from '../pages/createUser/createUser.page'
 
 const MainNavigator = () => {
     const isLogged = useSelector(getIsLogged)
@@ -19,6 +20,7 @@ const MainNavigator = () => {
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="/update" element={<UpdateUser />} />
+                <Route path="/create" element={<CreateUser />} />
             </Routes>
         </Router>
     )

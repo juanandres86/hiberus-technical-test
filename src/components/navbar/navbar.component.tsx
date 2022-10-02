@@ -16,6 +16,10 @@ function NavBarComponent() {
         navigate('/')
     }
 
+    const handleCreate = () => {
+        navigate('/create')
+    }
+
     return (
         <Navbar bg="light" variant="light">
             <Container>
@@ -25,7 +29,7 @@ function NavBarComponent() {
                     }`}
                 </Navbar.Brand>
                 <Nav className="me-auto">
-                    <Nav.Link>Crear usuario</Nav.Link>
+                    <Nav.Link onClick={handleCreate}>Crear usuario</Nav.Link>
                     <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                 </Nav>
             </Container>

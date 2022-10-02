@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getUsersService } from '../../services/users'
+import { getUsersService, removeUserService } from '../../services/users'
 import { useSelector } from 'react-redux'
 import { getToken } from '../../store/session/session.selectors'
 import { User } from '../../types/user.types'
@@ -26,9 +26,19 @@ const UsersPage = () => {
         navigate('/update', { state: { user } })
     }
 
+    const handleRemoveUser = async (userId: string) => {
+        const response = await removeUserService(userId, token)
+        if (response.success) {
+            const newList = userList.filter((user) => user.id !== userId)
+            setUserList(newList)
+        } else {
+            alert('Error removing user')
+        }
+    }
+
     return (
         <div className="container">
-            <Row xs={1} md={2} className="g-4">
+            <Row xs={1} md={2} className="g-4 p-3">
                 {userList.map((user) => {
                     return (
                         <Col key={user.id}>
@@ -42,7 +52,14 @@ const UsersPage = () => {
                                     >
                                         Editar
                                     </Button>
-                                    <Button variant="primary">Eliminar</Button>
+                                    <Button
+                                        variant="primary"
+                                        onClick={() =>
+                                            handleRemoveUser(user.id)
+                                        }
+                                    >
+                                        Eliminar
+                                    </Button>
                                 </Card.Body>
                             </Card>
                         </Col>

@@ -99,3 +99,67 @@ export async function updateUserService(newUser: User, token: string): Promise<S
         message: "Error desconocido"
     }
 }
+
+export async function createUserService(name:string, surname:string, email:string, password:string, token: string): Promise<ServiceResponse> {
+    try {
+        const response = await axios.post(`http://51.38.51.187:5050/api/v1/users/`, {name, surname, email, password}, {
+            headers: {
+                'accept': 'application/json',
+                'Authorization': token
+            },
+            validateStatus: (status: number) => {
+                return status === 201;
+            }
+        })
+        if (response.status === 201) {
+            return {
+                success: true,
+                message: "Usuario creado con éxito"
+            }
+        }
+    } catch(_) {
+        return {
+            success: false,
+            message: "Error desconocido"
+        }
+    }
+    return {
+        success: false,
+        message: "Error desconocido"
+    }
+}
+
+export async function removeUserService(userId: string, token: string): Promise<ServiceResponse> {
+    try {
+        const response = await axios.delete(`http://51.38.51.187:5050/api/v1/users/${userId}`, {
+            headers: {
+                'accept': 'application/json',
+                'Authorization': token
+            },
+            validateStatus: (status: number) => {
+                return status === 204 || status === 404;
+            }
+        })
+        if (response.status === 204) {
+            return {
+                success: true,
+                message: "Usuario eliminado con éxito"
+            }
+        }
+        if (response.status === 404) {
+            return {
+                success: false,
+                message: "Usuario no encontrado"
+            }
+        }
+    } catch(_) {
+        return {
+            success: false,
+            message: "Error desconocido"
+        }
+    }
+    return {
+        success: false,
+        message: "Error desconocido"
+    }
+}
