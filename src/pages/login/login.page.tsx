@@ -57,7 +57,7 @@ const LoginPage = () => {
     }
 
     return (
-        <div className="container">
+        <div className="d-inline-flex p-5 d-flex align-items-center flex-column">
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
@@ -91,8 +91,10 @@ const LoginPage = () => {
                 <Button variant="primary" type="submit">
                     Login
                 </Button>
-                <Button variant="primary" onClick={handleGoSignUp}>
-                    Registro
+                <br />
+                <br />
+                <Button variant="link" onClick={handleGoSignUp}>
+                    No estás registrado? Regístrate
                 </Button>
             </Form>
         </div>
