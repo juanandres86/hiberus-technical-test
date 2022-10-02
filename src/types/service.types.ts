@@ -17,5 +17,5 @@ export type UserInfoResponse = {
 export type ServiceResponse = {
   success: boolean;
   message: string;
-  data?: LoginResponse | UserInfoResponse | User[];
+  data?: LoginResponse | UserInfoResponse | User[] | User;
 }

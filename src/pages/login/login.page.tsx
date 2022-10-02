@@ -4,12 +4,12 @@ import Form from 'react-bootstrap/Form'
 import { loginService } from '../../services/auth'
 import Alert from 'react-bootstrap/Alert'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-    removeToken,
-    setToken,
-} from '../../store/application/application.slice'
-import { getIsLogged } from '../../store/application/application.selectors'
+import { login, logout } from '../../store/session/session.slice'
+import { getIsLogged } from '../../store/session/session.selectors'
 import { useNavigate } from 'react-router-dom'
+import { getCurrentUserInfoService } from '../../services/users'
+import { LoginResponse } from '../../types/service.types'
+import { User } from '../../types/user.types'
 
 const LoginPage = () => {
     const [email, setEmail] = useState('')
@@ -32,10 +32,16 @@ const LoginPage = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setErrorMessage('')
-        dispatch(removeToken())
+        dispatch(logout())
         const jwtToken = await loginService(email, password)
         if (jwtToken.success) {
-            dispatch(setToken(jwtToken))
+            const loginData = jwtToken.data as LoginResponse
+            const userData = await getCurrentUserInfoService(
+                loginData.tokenType,
+                loginData.accessToken
+            )
+            const user = userData.data as User
+            dispatch(login({ user, ...loginData }))
         } else {
             // success === false
             setErrorMessage(jwtToken.message)

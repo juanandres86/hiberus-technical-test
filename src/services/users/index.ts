@@ -32,3 +32,33 @@ export async function getUsersService(token:string): Promise<ServiceResponse> {
         message: "Error desconocido"
     }
 }
+
+export async function getCurrentUserInfoService(tokenType: string, token: string): Promise<ServiceResponse> {
+    try {
+        const response = await axios.get('http://51.38.51.187:5050/api/v1/users/me', {
+            headers: {
+                'accept': 'application/json',
+                'Authorization': `${tokenType} ${token}`
+            },
+            validateStatus: (status: number) => {
+                return status === 200;
+            }
+        })
+        if (response.status === 200){
+            return {
+                success: true,
+                message: "Usuario obtenido con éxito",
+                data: response.data
+            }
+        }
+    } catch(_) {
+        return {
+            success: false,
+            message: "Error desconocido"
+        }
+    }
+    return {
+        success: false,
+        message: "Error desconocido"
+    }
+}
