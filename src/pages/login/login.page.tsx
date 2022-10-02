@@ -57,7 +57,7 @@ const LoginPage = () => {
     }
 
     return (
-        <div className="d-inline-flex p-5 d-flex align-items-center flex-column">
+        <div className="w-50 p-3 mx-auto">
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>

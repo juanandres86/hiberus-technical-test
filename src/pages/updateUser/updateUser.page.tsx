@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import { useNavigate, useLocation } from 'react-router-dom'
-import UserForm from '../../components/userForm/userForm.component'
+import UserFormComponent from '../../components/userForm/userForm.component'
 import { updateUserService } from '../../services/users'
 import { User } from '../../types/user.types'
 import { useSelector } from 'react-redux'
 import { getToken } from '../../store/session/session.selectors'
 
-const UpdateUser = () => {
+const UpdateUserPage = () => {
     const [errorMessage, setErrorMessage] = useState('')
     const [updateUserSuccessMessage, setUpdateUserSuccessMessage] = useState('')
     const navigate = useNavigate()
@@ -45,8 +45,8 @@ const UpdateUser = () => {
     }
 
     return (
-        <div className="container">
-            <UserForm
+        <div className="w-50 p-3 mx-auto">
+            <UserFormComponent
                 onSubmit={handleSubmit}
                 errorMessage={errorMessage}
                 successMessage={updateUserSuccessMessage}
@@ -59,4 +59,4 @@ const UpdateUser = () => {
     )
 }
 
-export default UpdateUser
+export default UpdateUserPage

@@ -15,7 +15,7 @@ type UserFormProps = {
     buttonLabel: string
 }
 
-const UserForm = ({
+const UserFormComponent = ({
     onSubmit,
     errorMessage,
     successMessage,
@@ -108,4 +108,4 @@ const UserForm = ({
     )
 }
 
-export default UserForm
+export default UserFormComponent

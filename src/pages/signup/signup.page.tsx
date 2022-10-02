@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import { singUpService } from '../../services/auth'
 import { useNavigate } from 'react-router-dom'
-import UserForm from '../../components/userForm/userForm.component'
+import UserFormComponent from '../../components/userForm/userForm.component'
 
-const SignUp = () => {
+const SignUpPage = () => {
     const [errorMessage, setErrorMessage] = useState('')
     const [signUpSuccessMessage, setSignUpSuccessMessage] = useState('')
     const navigate = useNavigate()
@@ -32,8 +32,8 @@ const SignUp = () => {
     }
 
     return (
-        <div className="d-inline-flex p-5 d-flex align-items-center flex-column">
-            <UserForm
+        <div className="w-50 p-3 mx-auto">
+            <UserFormComponent
                 onSubmit={handleSubmit}
                 errorMessage={errorMessage}
                 successMessage={signUpSuccessMessage}
@@ -45,4 +45,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default SignUpPage

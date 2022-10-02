@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import { useNavigate } from 'react-router-dom'
-import UserForm from '../../components/userForm/userForm.component'
+import UserFormComponent from '../../components/userForm/userForm.component'
 import { createUserService } from '../../services/users'
 import { useSelector } from 'react-redux'
 import { getToken } from '../../store/session/session.selectors'
 
-const CreateUser = () => {
+const CreateUserPage = () => {
     const [errorMessage, setErrorMessage] = useState('')
     const [createUserSuccessMessage, setCreateUserSuccessMessage] = useState('')
     const navigate = useNavigate()
@@ -42,8 +42,8 @@ const CreateUser = () => {
     }
 
     return (
-        <div className="container">
-            <UserForm
+        <div className="w-50 p-3 mx-auto">
+            <UserFormComponent
                 onSubmit={handleSubmit}
                 errorMessage={errorMessage}
                 successMessage={createUserSuccessMessage}
@@ -55,4 +55,4 @@ const CreateUser = () => {
     )
 }
 
-export default CreateUser
+export default CreateUserPage

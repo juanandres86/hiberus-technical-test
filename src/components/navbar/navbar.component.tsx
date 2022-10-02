@@ -30,6 +30,8 @@ function NavBarComponent() {
                 </Navbar.Brand>
                 <Nav className="me-auto">
                     <Nav.Link onClick={handleCreate}>Crear usuario</Nav.Link>
+                </Nav>
+                <Nav className="navbar-nav ml-auto">
                     <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                 </Nav>
             </Container>
