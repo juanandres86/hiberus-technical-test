@@ -58,6 +58,9 @@ const LoginPage = () => {
 
     return (
         <div className="w-50 p-3 mx-auto">
+            <p className="h2">Hiberus Technical Test</p>
+            <p className="h4">Juan Andrés Díaz Ibáñez</p>
+            <br />
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>

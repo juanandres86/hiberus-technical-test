@@ -40,7 +40,7 @@ const SignUpPage = () => {
                 buttonLabel="Regístrame"
             />
             <br />
-            <Button onClick={handleGoToLogin}>Go to login</Button>
+            <Button onClick={handleGoToLogin}>Ir a Login</Button>
         </div>
     )
 }

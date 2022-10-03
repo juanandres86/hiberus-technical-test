@@ -13,12 +13,14 @@ const UsersPage = () => {
     const navigate = useNavigate()
     const token = useSelector(getToken)
     const [userList, setUserList] = useState<User[]>([])
+    const [searchList, setSearchList] = useState<User[]>([])
     const currentUser = useSelector(getCurrentUser)
 
     useEffect(() => {
         const getUsersList = async () => {
             const resp = await getUsersService(token)
             setUserList(resp.data as User[])
+            setSearchList(resp.data as User[])
         }
         getUsersList()
     }, [token])
@@ -32,8 +34,9 @@ const UsersPage = () => {
         if (response.success) {
             const newList = userList.filter((user) => user.id !== userId)
             setUserList(newList)
+            setSearchList(newList)
         } else {
-            alert('Error removing user')
+            alert(response.message)
         }
     }
 
@@ -44,10 +47,35 @@ const UsersPage = () => {
         return ''
     }
 
+    const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        const search = e.target.value
+        if (search && search.length > 0) {
+            const newList = userList.filter(
+                (user) =>
+                    user.name.toLowerCase().includes(search.toLowerCase()) ||
+                    user.email.toLowerCase().includes(search.toLowerCase())
+            )
+            setSearchList(newList)
+        } else {
+            setSearchList(userList)
+        }
+    }
+
     return (
         <div className="container">
-            <Row xs={1} sm={1} md={3} xl={4} className="g-4 p-3">
-                {userList.map((user) => {
+            <div className="input-group mb-3 p-3">
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Buscar usuario"
+                    aria-label="Buscar usuario"
+                    aria-describedby="basic-addon2"
+                    onChange={onSearch}
+                />
+            </div>
+            <Row xs={1} sm={2} md={3} xl={4} className="g-4 p-3">
+                {searchList.map((user) => {
                     return (
                         <Col key={user.id}>
                             <Card className={getCurrentUserClassname(user.id)}>
@@ -61,12 +89,12 @@ const UsersPage = () => {
                                         Editar
                                     </Button>
                                     <Button
+                                        className="m-2"
                                         variant="primary"
                                         disabled={user.id === currentUser?.id}
                                         onClick={() =>
                                             handleRemoveUser(user.id)
                                         }
-                                        className="m-2"
                                     >
                                         Eliminar
                                     </Button>
