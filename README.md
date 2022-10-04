@@ -57,26 +57,26 @@ Para organizar las carpetas y asignarle nombre a los distintos archivos he segui
 ```.
 ├── src
 │ ├── components => componentes a usar por las distintas páginas
-│ │ │──navbar
-│ │ └──userForm
+│ │ │──navbar => barra de navegación cuando el usuario esta autentificado
+│ │ └──userForm => formulario del usuario para ser reutilizado en distintas páginas
 │ │
 │ ├── hooks => hooks necesarios para usar redux toolkit
 │ │
 │ ├── navigation => componente para las rutas de las páginas
 │ │
 │ ├── pages => páginas a mostrar dependiendo del routing
-│ │ │──createUser
-│ │ │──login
-│ │ │──signup
-│ │ │──updateUser
-│ │ └──users
+│ │ │──createUser => página para crear un usuario
+│ │ │──login => página para que el usuario haga login
+│ │ │──signup => página para registrar un usuario cuando no tiene credenciales
+│ │ │──updateUser => página para editar los datos del usuario
+│ │ └──users => página con el listado de usuarios
 │ │
 │ ├── services => servicios de peticiones a la API
-│ │ │──auth
-│ │ └──users
+│ │ │──auth => servicios relacionados con la autentificación
+│ │ └──users => servicios relacionados con la entidad usuario
 │ │
 │ ├── store => store de redux
-│ │ └──session
+│ │ └──session => slice para guardar la info de sesión del usuario
 │ │
 │ └── types => declaración de tipos de la aplicación
 └── App.tsx => componente principal
