@@ -15,7 +15,6 @@ export async function getUsersService(token:string): Promise<ServiceResponse> {
             }
         })
         if (response.status === 200){
-            console.log(response.data.items);
             return {
                 success: true,
                 message: "Listado obtenido con éxito",

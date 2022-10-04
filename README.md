@@ -1,46 +1,105 @@
-# Getting Started with Create React App
+# Juan Andrés Díaz Ibáñez - Prueba técnica Hiberus
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+La prueba técnica consiste en realizar login y CRUD contra una API de la que tenemos disponible un Swagger
 
-## Available Scripts
+## Creación del proyecto y librerias utilizadas
 
-In the project directory, you can run:
+_Proyecto_:
+
+### `npx create-react-app technical-test --template typescript`
+
+_React-Redux-Toolkit_:
+
+### `npm install @reduxjs/toolkit`
+
+_Redux-Persist_:
+
+### `npm install redux-persist`
+
+_Axios_:
+
+### `npm install axios`
+
+_React-Bootstrap_:
+
+### `npm install react-bootstrap bootstrap`
+
+## Arrancar la aplicación
+
+En el directorio del proyecto ejecutar:
+
+### `npm install`
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Para instalar los paquetes necesarios y arrancar la aplicacion
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Abre en el navegador [http://localhost:3000]
 
-### `npm test`
+## Estrategia de trabajo
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Visualización y prueba del Swagger para comprobar su funcionamiento
+2. Identificación de la necesidad de tener un estado global
+3. Identificación y esquema de las páginas principales y distintos componentes de la aplicación
+4. Instalación de las distintas librerias necesarias para poder desarrollar la aplicación
+5. Creación de la estructura de carpetas
+6. Creación de las distintas rutas, páginas, componentes, servicios y store de redux
+7. Revisión y limpieza de código
 
-### `npm run build`
+## Framework utilizado
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Para realizar esta aplicación he utilizado _ReactJs+TypeScript_, ya que es el framework con el que he trabajado más y por lo tanto conozco más, para este proyecto he incluido TypeScript para tener mejor controlados los tipos de las variables y evitar errores.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Estructura de carpetas
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Para organizar las carpetas y asignarle nombre a los distintos archivos he seguido la siguiente estructura:
 
-### `npm run eject`
+```.
+├── src
+│ ├── components => componentes a usar por las distintas páginas
+│ │ │──navbar
+│ │ └──userForm
+│ │
+│ ├── hooks => hooks necesarios para usar redux toolkit
+│ │
+│ ├── navigation => componente para las rutas de las páginas
+│ │
+│ ├── pages => páginas a mostrar dependiendo del routing
+│ │ │──createUser
+│ │ │──login
+│ │ │──signup
+│ │ │──updateUser
+│ │ └──users
+│ │
+│ ├── services => servicios de peticiones a la API
+│ │ │──auth
+│ │ └──users
+│ │
+│ ├── store => store de redux
+│ │ └──session
+│ │
+│ └── types => declaración de tipos de la aplicación
+└── App.tsx => componente principal
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Estado global
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Para poder gestionar la autorización de un usuario y así poder ver las distintas páginas a las que tendría acceso una vez estuviera logado he utilizado un estado global con _Redux-Toolkit_, para poder tener más accesible y centralizada esa información y utilizarla de una manera mas sencilla y limpia. La información necesaria para este estado global son los datos del usuario logado junto con un token que me devuelve la API una vez se verifican los datos del usuario y son correctos.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Estilos
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Para diseñar el estilo de la aplicación de una manera rapida he utilizado _React-Bootstrap_, es una librería con bastantes plantillas y estilos predefinidos.
 
-## Learn More
+## Tiempo dedicado al desarrollo de la prueba
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Realizar el proyecto me llevó aproximadamente 2 días
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Problemas/Dificultades encontradas y soluciones implementadas
+
+-   Actualizacion de la información de usuario: el problema que encontré era como llevar los datos del usuario que queria editar al formulario, para ello utilicé el hook useLocation que me facilita toda la información que es enviada a través de la función "navigate" de "react-router-dom" entre la que se encuentra el state de ese momento, que es la información del usuario a modificar, ya que cada usuario tiene su card donde esta toda su información junto con el boton de editar y eliminar.
+
+-   Eliminar usuarios y ver la lista actualizada: para poder eliminar los usuarios y ver la lista actualizada me di cuenta que tenia que volver a llamar a la API para recuperar el listado de usuarios, para hacer la aplicación mas eficiente, controlo el mensaje de "ok" cuando lanzo la petición a la API de eliminar un usuario, y lo elimino en la lista que tengo en el state del componente para evitar realizar otra llamada a la API de manera innecesaria.
+
+-   Buscar un usuario: para realizar la busqueda de un usuario finalmente me cree una copia del listado de usuarios (searchList) y sobre esta copia hacer las modificaciones necesarias en funcion de la palabra buscada y que se mostraran al instante, en caso de no tener ninguna palabra en el input del buscador seteo searchList con la lista de usuarios que tengo userList, y volverían a mostrarse todos. Obviamente tendría más sentido si esto se implementara con un endpoint diseñado para aceptar la query, pero pensé que podría ser un buen detalle para darle más valor a la aplicación.
+
+-   Persistencia del token al actualizar la página: el problema que encontré era que al actualizar la página me hacía logout porque el token no era persistente en el navegador y para realizar la persistencia de los datos del login he utilizado _Redux-Persist_ y así poder recargar la página e incluso cerrar el navegador y volver a abrirlo y seguir teniendo la sesión iniciada.
